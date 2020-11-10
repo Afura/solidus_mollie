@@ -1,0 +1,5 @@
+bump:
+  recurse: false
+  file: 'lib/solidus_mollie/version.rb'
+  message: Bump SolidusMollie to %{version}
+  tag: true
