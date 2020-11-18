@@ -10,10 +10,17 @@ module SolidusMollie
     isolate_namespace ::Spree
 
     engine_name 'solidus_mollie'
+    
 
     # use rspec for tests
     config.generators do |g|
       g.test_framework :rspec
+    end
+
+    Spree::PermittedAttributes.source_attributes << :payment_method_id
+
+    initializer "register_spree_mollie_payment_method", after: "spree.register.payment_methods" do |app|
+      app.config.spree.payment_methods << Spree::PaymentMethod::Mollie
     end
   end
 end

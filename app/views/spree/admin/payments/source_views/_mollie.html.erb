@@ -1,0 +1,27 @@
+<fieldset data-hook="credit_card">
+  <legend align="center"><%= Spree::MolliePaymentSource.model_name.human %></legend>
+
+  <div class="row">
+    <div class="col-12">
+      <dl>
+        <dt><%= t('spree.payment_method') %>:</dt>
+        <dd><%= payment.source.payment_method_name %></dd>
+
+         <dt><%= t('spree.transaction_id') %>:</dt>
+         <dd><%= payment.source.payment_id %></dd>
+
+         <dt><%= t('spree.Payment Link') %>:</dt>
+         <dd><a href="<%= payment.source.payment_url %>"><%= payment.source.payment_url %></a></dd>
+
+        <% if payment.source.issuer %>
+          <dt><%= t('spree.issuer') %>:</dt>
+          <dd><%= payment.source.issuer %></dd>
+        <% end %>
+
+         <dt><%= t('spree.payment_status') %>:</dt>
+         <dd><%= payment.source.status %></dd>
+      </dl>
+
+    </div>
+  </div>
+</fieldset>

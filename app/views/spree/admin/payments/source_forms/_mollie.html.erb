@@ -1,0 +1,8 @@
+<fieldset class="no-border-bottom js-edit-credit-card">
+  <legend><%= payment_method.name %></legend>
+
+  <div id="card_form<%= payment_method.id %>" data-hook class="js-new-credit-card-form">
+    <% param_prefix = "payment_source[#{payment_method.id}]" %>
+    
+  </div>
+</fieldset>
