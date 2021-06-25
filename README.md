@@ -1,13 +1,9 @@
 # Solidus Mollie
 
-<!-- Replace REPO_ORG and uncomment the following to show badges for CI and coverage. -->
+[![CircleCI](https://circleci.com/gh/solidusio-contrib/solidus_mollie.svg?style=shield)](https://circleci.com/gh/solidusio-contrib/solidus_mollie)
+[![codecov](https://codecov.io/gh/solidusio-contrib/solidus_mollie/branch/master/graph/badge.svg)](https://codecov.io/gh/solidusio-contrib/solidus_mollie)
 
-<!--
-[![CircleCI](https://circleci.com/gh/REPO_ORG/solidus_mollie.svg?style=shield)](https://circleci.com/gh/REPO_ORG/solidus_mollie)
-[![codecov](https://codecov.io/gh/REPO_ORG/solidus_mollie/branch/master/graph/badge.svg)](https://codecov.io/gh/REPO_ORG/solidus_mollie)
--->
-
-[Explain what your extension does.]
+<!-- Explain what your extension does. -->
 
 ## Installation
 
@@ -25,7 +21,7 @@ bin/rails generate solidus_mollie:install
 
 ## Usage
 
-[Explain how to use your extension once it's been installed.]
+<!-- Explain how to use your extension once it's been installed. -->
 
 ## Development
 
@@ -46,10 +42,17 @@ bundle exec rubocop
 ```
 
 When testing your application's integration with this extension you may use its factories.
-Simply add this require statement to your spec_helper:
+Simply add this require statement to your `spec/spec_helper.rb`:
 
 ```ruby
-require 'solidus_mollie/factories'
+require 'solidus_mollie/testing_support/factories'
+```
+
+Or, if you are using `FactoryBot.definition_file_paths`, you can load Solidus core
+factories along with this extension's factories using this statement:
+
+```ruby
+SolidusDevSupport::TestingSupport::Factories.load_for(SolidusMollie::Engine)
 ```
 
 ### Running the sandbox
@@ -81,16 +84,8 @@ git commit -m "Update the changelog"
 
 ### Releasing new versions
 
-Your new extension version can be released using `gem-release` like this:
-
-```shell
-bundle exec gem bump -v 1.6.0
-bin/rake changelog
-git commit -a --amend
-git push
-bundle exec gem release
-```
+Please refer to the dedicated [page](https://github.com/solidusio/solidus/wiki/How-to-release-extensions) on Solidus wiki.
 
 ## License
 
-Copyright (c) 2020 [name of extension author], released under the New BSD License.
+Copyright (c) 2021 [name of extension author], released under the New BSD License.

@@ -15,24 +15,24 @@ module Spree
  
         def serialize
           spree_routes = ::Spree::Core::Engine.routes.url_helpers
-          order_number = @gateway_options[:order_id]
+          payment_identifier = @gateway_options[:order_id]
   
           order_params = {
             amount: price(@order.total),
             metadata: {
-              order_number: order_number
+              order_number: @order.number,
+              payment_identifier: payment_identifier
             },
-            orderNumber: order_number,
+            orderNumber: payment_identifier,
             redirectUrl: spree_routes.mollie_validate_payment_mollie_url(
-              order_id: @order.id,
+              order_number: payment_identifier,
               host: Spree::Store.default.url
             ),
             webhookUrl: spree_routes.mollie_update_payment_status_mollie_url(
-              order_id: @order.id,
+              payment_identifier: payment_identifier,
               host: Spree::Store.default.url
             ),
             locale: 'en_US',
-
           }
  
           if @gateway_options[:billing_address].present?
@@ -82,9 +82,9 @@ module Spree
   
           order_lines << serialize_shipping_costs
   
-          if @order.shipping_discount.positive?
-            order_lines << serialize_shipping_discounts
-          end
+          # if @order.shipping_discount.positive?
+          #   order_lines << serialize_shipping_discounts
+          # end
   
           order_lines
         end
@@ -107,8 +107,8 @@ module Spree
             type: 'shipping_fee',
             name: 'Shipping',
             quantity: 1, # Considering shipment as one line item per order and not per item or package
-            unitPrice: price(@order.shipment_total),
-            totalAmount: price(@order.shipment_total),
+            unitPrice: price(@order.shipments.map(&:cost).inject(0, &:+).to_f + @order.shipments.map(&:adjustment_total).inject(0, &:+).to_f),
+            totalAmount: price(@order.shipments.map(&:cost).inject(0, &:+).to_f + @order.shipments.map(&:adjustment_total).inject(0, &:+).to_f),
             vatAmount: price(format_money(@order.shipments.map(&:included_tax_total).inject(0, &:+).to_f)), #TODO: Extract to its own method
             vatRate: @order.shipments.first.tax_category.tax_rates.first.amount.to_f * 100 #TODO: Mollie allows only one tax rate, extract to method
           }

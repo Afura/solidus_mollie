@@ -14,8 +14,6 @@ gem 'rails', '>0.a'
 # Provides basic authentication functionality for testing parts of your engine
 gem 'solidus_auth_devise'
 
-gem 'mollie-api-ruby', '~> 4.2.0'
-
 case ENV['DB']
 when 'mysql'
   gem 'mysql2'

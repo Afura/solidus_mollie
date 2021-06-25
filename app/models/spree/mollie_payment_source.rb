@@ -56,11 +56,6 @@ module Spree
         'Mollie (Unknown method)'
       end
     end
- 
-     def details
-       api_key = payment_method.get_preference(:api_key)
-       mollie_payment = ::Mollie::Order.get(payment_id, api_key: api_key)
-       mollie_payment.attributes
-     end
+    
    end
  end

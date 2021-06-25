@@ -8,8 +8,6 @@ module Spree
        def initialize(mollie_order, payment)
          @mollie_order = mollie_order
          @payment = payment
-
-         binding.pry
        end
  
        def call

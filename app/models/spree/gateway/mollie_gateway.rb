@@ -6,7 +6,7 @@ require 'mollie-api-ruby'
 # 1. Webhook Callbacks
 # 2. Payment Methods through API
 # 3. Create Mollie User
-# 4. Mollie shipoments
+# 4. Mollie shipments
 
 # X. Client wrapper like PayPal
 # X. Ugly functions in serializer
@@ -25,10 +25,6 @@ module Spree
       def format_money(money)
          Spree::Money.new(money, { symbol: nil, thousands_separator: nil, decimal_mark: '.' }).format
        end
-
-      def auto_capture?
-         false # Mollie always auto captures payments, should not be allowed to set as false with preferences
-      end
 
       def authorize(_money, _source, gateway_options = {})
          begin
@@ -61,11 +57,9 @@ module Spree
             if cancel_mollie_order!(payment_id)
               ActiveMerchant::Billing::Response.new(true, 'Mollie order has been cancelled.')
             else
-              MollieLogger.debug("Spree order #{payment_id} has been canceled, could not cancel Mollie order.")
               ActiveMerchant::Billing::Response.new(true, 'Spree order has been canceled, could not cancel Mollie order.')
             end
           rescue ::Mollie::Exception => e
-            MollieLogger.debug("Order #{payment_id} could not be canceled: #{e.message}")
             ActiveMerchant::Billing::Response.new(false, 'Order cancellation unsuccessful.')
           end
       end
@@ -78,7 +72,7 @@ module Spree
          order = payment.try(:order)
          reimbursement = refund.try(:reimbursement)
 
-         binding.pry
+         # binding.pry
 
          begin
             if reimbursement
