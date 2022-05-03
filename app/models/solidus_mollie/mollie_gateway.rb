@@ -13,7 +13,7 @@ require 'mollie-api-ruby'
 # x. Nice helper for Payment ID
 # X. Check if we pass only variables needed
 
-module Spree 
+module SolidusMollie 
    class Gateway::MollieGateway 
 
       def initialize(options)

@@ -1,5 +1,5 @@
-module Spree
-   class MolliePaymentSource < Spree::PaymentSource
+module SolidusMollie
+   class PaymentSource < Spree::PaymentSource
 
      self.table_name = "solidus_mollie_payment_sources"
  

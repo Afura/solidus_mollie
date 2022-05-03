@@ -6,7 +6,7 @@ module Spree
             order = Spree::Order.find_by(number: params[:id])
             method_params = payload(order)
 
-            payment_methods = Spree::PaymentMethod::Mollie.first.gateway.available_methods(method_params).map(&:attributes)
+            payment_methods = SolidusMollie::PaymentMethod.first.gateway.available_methods(method_params).map(&:attributes)
 
             render json: payment_methods
          end

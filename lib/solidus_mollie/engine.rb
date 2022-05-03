@@ -20,7 +20,7 @@ module SolidusMollie
     Spree::PermittedAttributes.source_attributes << :payment_method_id
 
     initializer "register_spree_mollie_payment_method", after: "spree.register.payment_methods" do |app|
-      app.config.spree.payment_methods << Spree::PaymentMethod::Mollie
+      app.config.spree.payment_methods << SolidusMollie::PaymentMethod
     end
   end
 end

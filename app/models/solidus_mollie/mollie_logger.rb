@@ -1,4 +1,4 @@
-module Spree
+module SolidusMollie
    class MollieLogger
      def self.debug(message = nil)
        return unless message.present?

@@ -1,8 +1,8 @@
 
 # frozen_string_literal: true
 
-module Spree
-  class PaymentMethod::Mollie < Spree::PaymentMethod
+module SolidusMollie
+  class PaymentMethod < SolidusSupport.payment_method_parent_class
     preference :api_key, :string
 
     def payment_source_class
